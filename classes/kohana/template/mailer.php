@@ -305,9 +305,8 @@ class Kohana_Template_Mailer
 						email::send($this->to, $this->from, $this->subject, $this->html, TRUE);
 						$this->_success	= TRUE; 
 						$this->_status	= 'Mail sent OK';
-						$this->log('[SENT]' . $log_text );
+						$this->log('[SENT]' . $log_text);
 					}
-					
 				// on failure, log the failure message, etc
 					catch(Exception $e)
 					{

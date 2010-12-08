@@ -31,7 +31,7 @@ class Controller_Mailer_Demo extends Controller
 					
 				// check name and email are set
 					$errors = array();
-					if(trim($data['name'])  == '')
+					if (trim($data['name'])  == '')
 					{
 						$data['errors']['name'] = 'Please enter a name';
 					}
@@ -44,9 +44,9 @@ class Controller_Mailer_Demo extends Controller
 				// grab variables
 					$name		= $data['name'];
 					$email		= $data['email'];
-					$from		= 'The Team<team@keyframesandcode.com>';
+					$from		= array('team@keyframesandcode.com', 'The Team');
 					$subject	= 'Welcome to the Site, ' . $data['name'];
-									  
+
 				// instantiate a template mailer instance, and load in the example email page
 					$mailer = Template_Mailer::factory($template, TRUE);
 					
