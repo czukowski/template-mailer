@@ -54,8 +54,8 @@ class Kohana_Template_Mailer
 
 		// parameters
 			protected $subject			= '';			// Email subject that will be stored between sends
-			protected $from				= '';			// email address in the format 'Joe Bloggs <joe@bloggs.com>'
-			protected $to				= '';			// email address in the format 'Joe Bloggs <joe@bloggs.com>'
+			protected $from				= array();		// email address in the format 'Joe Bloggs <joe@bloggs.com>'
+			protected $to				= array();		// email address in the format 'Joe Bloggs <joe@bloggs.com>'
 
 		// status variables
 			protected $_success			= FALSE;		// flag to say whether the last-sent mail was successful
@@ -69,7 +69,7 @@ class Kohana_Template_Mailer
 
 	// ------------------------------------------------------------------------------------------------
 	// instantiation
-	
+
 		/**
 		 * Template_Mailer constructor
 		 * 
@@ -88,7 +88,7 @@ class Kohana_Template_Mailer
 				$this->log('Class loaded');
 			
 			// default from email
-				$this->from				= array('admin@'.preg_replace('/^\w+\./', '', $_SERVER['HTTP_HOST']) => 'Admin');
+				$this->from				= array('admin@'.preg_replace('/^\w+\./', '', $_SERVER['HTTP_HOST']), 'Admin');
 				
 			// get cached template
 				$this->template			= $this->get_cache($template_path); 
@@ -126,8 +126,8 @@ class Kohana_Template_Mailer
 			// return 
 				return $this;
 		}
-		
-		
+
+
 		/**
 		 * Chainable factory method to return new Template_Mailer instance
 		 * 
@@ -140,7 +140,7 @@ class Kohana_Template_Mailer
 		{
 			return new Template_Mailer($template_path, $data);
 		}
-		
+
 
 	// ------------------------------------------------------------------------------------------------
 	// public methods: data
@@ -168,42 +168,42 @@ class Kohana_Template_Mailer
 				{
 					$this->reset();
 				}
-				
+
 			// automatically set class variables if contained in $data
-			 
+
 				// name and email if it exists
 					if (isset($data['name']) && isset($data['email']))
 					{
-						$this->set_to( array( $data['name'], $data['email'] ) );
+						$this->set_to(array($data['email'], $data['name']));
 					}
-					
+
 				// to
 					if (isset($data['to']))
 					{
-						$this->set_to( $data['to'] );
+						$this->set_to($data['to']);
 					}
-				
+
 				// from
 					if (isset($data['from']))
 					{
-						$this->set_from( $data['from'] );
+						$this->set_from($data['from']);
 					}
-				
+
 				// subject
 					if (isset($data['subject']))
 					{
-						$this->set_subject( $data['subject'] );
+						$this->set_subject($data['subject']);
 					}
-				
+
 			// replace placeholders
 				$this->html			= $this->parse_variables($this->html, $data);
 				$this->subject		= $this->parse_variables($this->title, $data);
 
-				
+
 			// return
 				return $this;
 		}
-		
+
 		/**
 		 * Set the subject of the email
 		 * 
@@ -216,7 +216,7 @@ class Kohana_Template_Mailer
 			$this->html = preg_replace('%<title>[^<]+?</title>%', '<title>' .$subject. '</title>', $this->html);
 			return $this;
 		}
-	
+
 		/**
 		 * Set the from address of the email
 		 * 
@@ -225,14 +225,10 @@ class Kohana_Template_Mailer
 		 */
 		public function set_from($email)
 		{
-			$email = Template_Mailer::create_email($email);
-			if ($email != NULL)
-			{
-				$this->from = $email;
-			}
+			$this->from = $this->parse_email($email);
 			return $this;
 		}
-	
+
 		/**
 		 * Set the to address of the email
 		 * 
@@ -241,11 +237,7 @@ class Kohana_Template_Mailer
 		 */
 		public function set_to($email)
 		{
-			$email = Template_Mailer::create_email($email);
-			if ($email != NULL)
-			{
-				$this->to = $email;
-			}
+			$this->to = $this->parse_email($email);
 			return $this;
 		}
 		
@@ -295,17 +287,17 @@ class Kohana_Template_Mailer
 			// run the mail sending code
 
 				// check from and to are defined
-					if ($this->to == '' || $this->from == '' || $this->subject == '')
+					if ( ! $this->to || ! $this->from || ! $this->subject)
 					{
-						throw new Kohana_User_Exception('Template Mailer Error', 'To, from, and subject fields need to be set');
+						throw new Kohana_Exception('Template Mailer Error', 'To, from, and subject fields need to be set');
 					}
 			
 				// log
 					$this->log('Sending mail...');
-					$log_text = ' subject:"' .htmlentities($this->subject). '", to:' .htmlentities($this->to) . ', from:' . htmlentities($this->from);
+					$log_text = ' subject:"'.HTML::chars($this->subject).'", to:'.HTML::chars($this->email_string($this->to)).', from:'.HTML::chars($this->email_string($this->from));
 				
 				// set a temporary error handler to trap any connection errors
-					set_error_handler( array( 'Template_Mailer', 'sendmail_error_handler' ) );
+					set_error_handler(array('Template_Mailer', 'sendmail_error_handler'));
 					
 				// attempt to send the mail, and log any actions
 					try
@@ -422,11 +414,11 @@ class Kohana_Template_Mailer
 				// array
 					else if (is_array($email))
 					{
-						// array('name', 'address')
+						// array('address', 'name')
 							if (isset($email[0]))
 							{
-								$name = $email[0];
-								$address = $email[1];
+								$address = $email[0];
+								$name = $email[1];
 							}
 						// array('name' => 'Name', 'address' => 'name@address.com')
 							else if (isset($email['name']) && isset($email['address']))
@@ -434,10 +426,10 @@ class Kohana_Template_Mailer
 								$name = $email['name'];
 								$address = $email['address'];
 							}
-						// array('name' => 'address')
+						// array('address' => 'name')
 							else
 							{
-								foreach ($email as $name => $address)
+								foreach ($email as $address => $mail)
 								{
 									break;
 								}
@@ -452,7 +444,28 @@ class Kohana_Template_Mailer
 		
 	// ------------------------------------------------------------------------------------------------
 	// protected methods: HTML generation
-	
+
+		protected function email_string($email)
+		{
+			return self::create_email($email);
+		}
+
+		/**
+		 * Parses email address in 'Joe Bloggs<joe@bloggs.com>' format into array('joe@bloggs.com' => 'Joe Bloggs'),
+		 * since SwiftMailer won't take such format
+		 * @return mixed
+		 */
+		protected function parse_email($email)
+		{
+			$rx_email = '/^([\w -_]+)<([A-Z0-9._%+-]+@[A-Z0-9.-]+)>$/i';
+			if (is_string($email) AND preg_match($rx_email, $email, $matches))
+			{
+				// Name<name@address.com> => array('name@address.com' => 'Name')
+				return array($matches[2], $matches[1]);
+			}
+			return $email;
+		}
+
 		/**
 		 * Parses the CSS from the template (both head CSS and external files) and rewrites the tags to use inline CSS 
 		 * 
@@ -599,7 +612,7 @@ class Kohana_Template_Mailer
 							$attributes = $this->get_attributes($match);
 							if (isset($attributes['name']) && $attributes['name'] == 'from')
 							{
-								$this->from = Template_Mailer::create_email($attributes['content']);
+								$this->set_from($attributes['content']);
 								break;
 							}
 						}

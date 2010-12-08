@@ -57,7 +57,7 @@ class Controller_Mailer_Demo extends Controller
 					if(strstr($template, 'acid') !== FALSE)
 					{
 						$mailer
-							->set_to(array($name, $email))
+							->set_to(array($email, $name))
 							->set_from($from)
 							->set_subject($subject)
 							;
