@@ -1,43 +1,33 @@
-	fieldset{
-		padding:10px;
-		margin:10px 10px 10px 0px;
-		}
-		
-	label{
-		display:block;
-		clear:both;
-		}
-		
-	fieldset input, 
-	fieldset textarea,
-	div.error{
-		width:300px;
-		font-size:12px;
-		}
-		
-	#buttons{
-		text-align:justify;
-		white-space:nowrap;
-		overflow:hidden;
-	}
-		
-	#buttons *{
-		float:left;
-	}
-	
-	.button{
-		width:175px;
-		margin-right:5px;
-		}
-
-
-	td{
-		vertical-align:top;
-		padding-bottom:10px;
-		}
-		
-	.error{
-			color:#F00;
-			font-size:11px;
-			font-variant:small-caps;
-			}
+fieldset {
+	padding: 10px;
+	margin: 10px 10px 10px 0px;
+}
+label {
+	display: block;
+	clear: both;
+}
+fieldset input, fieldset textarea, div.error{
+	width: 300px;
+	font-size: 12px;
+}
+td {
+	vertical-align :top;
+	padding-bottom :10px;
+}
+.button{
+	width: 175px;
+	margin-right: 5px;
+}
+.error {
+	color: #f00;
+	font-size: 11px;
+	font-variant: small-caps;
+}
+#buttons{
+	text-align: justify;
+	white-space: nowrap;
+	overflow: hidden;
+}
+#buttons * {
+	float: left;
+}

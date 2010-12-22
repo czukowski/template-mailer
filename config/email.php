@@ -6,7 +6,7 @@ return array(
 	 * Valid drivers are: native, sendmail, smtp
 	 */
 	'driver' => 'native',
-	
+
 	/**
 	 * To use secure connections with SMTP, set "port" to 465 instead of 25.
 	 * To enable TLS, set "encryption" to "tls".

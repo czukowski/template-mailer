@@ -1,63 +1,52 @@
-	*{
-		font-size:12px;
-		line-height:17px;
-		font-weight:normal;
-		font-family:Arial, Helvetica, sans-serif;
-		}
-		
-	body{
-		padding:50px;
-		padding-bottom:200px;
-		}
-		
-	h1{
-		font-size:24px;
-		}
-		
-	h2{
-		font-size:16px;
-		font-weight:bold;
-		}
-		
-	h3{
-		font-size:12px;
-		font-weight:bold;
-		margin:15px 0px 5px 0px;
-		}
-		
-	p{
-		color:#666;
-		}
-		
-	ul{
-		padding-top:0px;
-		margin-top:0px;
-		}
-		
-	strong{
-		font-family:Consolas, "Courier New", Courier, monospace;
-		color:red;
-		font-weight:bold;
-	}
-		
-	#content{
-		width:544px;
-		margin:auto;
-		}
-		
-	pre{
-		border:1px solid #000;
-		padding:10px;
-		margin:0px 0px 0px 25px;
-		background-color:#EEE;
-		white-space:pre;
-		overflow:auto;
-		}
-		
-	a, a:link, a:visited{
-		color:green;
-		}
-	a:hover{
-		text-decoration:none;
-		}
-		
+* {
+	font-size: 12px;
+	line-height: 17px;
+	font-weight: normal;
+	font-family: Arial, Helvetica, sans-serif;
+}
+a, a:link, a:visited {
+	color: green;
+}
+a:hover {
+	text-decoration: none;
+}
+body {
+	padding: 50px;
+	padding-bottom: 200px;
+}
+h1 {
+	font-size: 24px;
+}
+h2 {
+	font-size: 16px;
+	font-weight: bold;
+}
+h3 {
+	font-size: 12px;
+	font-weight: bold;
+	margin: 15px 0px 5px 0px;
+}
+p {
+	color: #666;
+}
+pre {
+	border: 1px solid #000;
+	padding: 10px;
+	margin: 0px 0px 0px 25px;
+	background-color: #eee;
+	white-space: pre;
+	overflow: auto;
+}
+strong {
+	font-family: Consolas, 'Courier New', Courier, monospace;
+	color: red;
+	font-weight: bold;
+}
+ul {
+	padding-top: 0px;
+	margin-top: 0px;
+}
+#content {
+	width: 544px;
+	margin: auto;
+}
