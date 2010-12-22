@@ -44,7 +44,8 @@
  *
  * @author		Tijs Verkoyen <php-css-to-inline-styles@verkoyen.eu>
  * @version		1.0.3
- *
+ * @see			http://classes.verkoyen.eu/css_to_inline_styles
+ * 
  * @copyright	Copyright (c) 2010, Tijs Verkoyen. All rights reserved.
  * @license		BSD License
  */
