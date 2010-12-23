@@ -350,16 +350,16 @@ class Kohana_Template_Mailer
 				}
 				
 			// create visual representation of email
-				$html = '<div style="margin:30px; border:1px solid #666; -moz-box-shadow: 0px 5px 15px #ccc; -webkit-box-shadow: 0px 5px 15px #ccc; box-shadow: 0px 5px 15px #ccc;">' . "\n";
-				$html .= '	<div style="padding:5px; background-color:#DDD; border-bottom:1px solid #666">' . "\n";
-				$html .= '		<p style="margin:5px; font:12px/15px Arial">Subject : ' .$this->subject. '</p>' . "\n";
-				$html .= '		<p style="margin:5px; font:12px/15px Arial">To : ' .htmlentities($this->to). '</p>' . "\n";
-				$html .= '		<p style="margin:5px; font:12px/15px Arial">From : ' .htmlentities($this->from). '</p>' . "\n";
-				$html .= '	</div>' . "\n";
-				$html .= '	<div style="overflow:hidden;">' . "\n";
+				$html = '<div style="margin:30px; border:1px solid #666; -moz-box-shadow: 0px 5px 15px #ccc; -webkit-box-shadow: 0px 5px 15px #ccc; box-shadow: 0px 5px 15px #ccc;">'."\n";
+				$html .= '	<div style="padding:5px; background-color:#DDD; border-bottom:1px solid #666">'."\n";
+				$html .= '		<p style="margin:5px; font:12px/15px Arial">Subject : '.$this->subject.'</p>'."\n";
+				$html .= '		<p style="margin:5px; font:12px/15px Arial">To : '.HTML::chars(self::create_email($this->to)).'</p>'."\n";
+				$html .= '		<p style="margin:5px; font:12px/15px Arial">From : '.HTML::chars(self::create_email($this->from)).'</p>'."\n";
+				$html .= '	</div>'."\n";
+				$html .= '	<div style="overflow:hidden;">'."\n";
 				$html .= $body;
-				$html .= '	</div>' . "\n";
-				$html .= '</div>' . "\n";
+				$html .= '	</div>'."\n";
+				$html .= '</div>'."\n";
 				
 			// log
 				$this->_success		= TRUE;
@@ -368,12 +368,12 @@ class Kohana_Template_Mailer
 			// return
 				if ($echo)
 				{
-					echo $html . "\n";
+					echo $html."\n";
 					return $this;
 				}
 				else
 				{
-					return $html . "\n";
+					return $html."\n";
 				}
 
 		}
