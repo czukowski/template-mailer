@@ -3,8 +3,8 @@ Template Mailer
 
 This is Template_Mailer module by Dave Stewart ported to Kohana 3.0.x (and mostly untested yet)
 
-To use it, you'll need Mailer module, such as Banks' (http://github.com/banks/kohana-email), Kohana doesn't include email
-helper by default.
+The files from Banks' Email module (http://github.com/banks/kohana-email) are included for convenience, but if you already have it,
+it's no problem, thanks to Kohana Cascading File System.
 
 To use demo, you'll need to make CSS files from 'media' folder accessible, for example, by copying its contents over to document root.
 
