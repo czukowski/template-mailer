@@ -99,7 +99,7 @@ class Kohana_Email {
 		}
 		elseif (is_array($to))
 		{
-			if (isset($to[0]) AND isset($to[1]))
+			if (isset($to[0]) AND array_key_exists(1, $to))
 			{
 				// Create To: address set
 				$to = array('to' => $to);
