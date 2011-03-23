@@ -6,7 +6,7 @@
  * 
  * Updated to use Swiftmailer 4.0.4
  *
- * @package    Core
+ * @package    Template Mailer
  * @author     Kohana Team
  * @copyright  (c) 2007-2008 Kohana Team
  * @license    http://kohanaphp.com/license.html

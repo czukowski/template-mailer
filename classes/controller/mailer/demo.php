@@ -4,6 +4,8 @@
  * Demo controller to show the functionality of the Template Mailer module
  *
  * Navigate to /mailer/demo in the URL and follow teh instructions...
+ *
+ * @package		Template Mailer
  */
 class Controller_Mailer_Demo extends Controller
 {
