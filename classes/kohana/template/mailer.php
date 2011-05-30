@@ -289,7 +289,7 @@ class Kohana_Template_Mailer
 				// check from and to are defined
 					if ( ! $this->to || ! $this->from || ! $this->subject)
 					{
-						throw new Kohana_Exception('Template Mailer Error', 'To, from, and subject fields need to be set');
+						throw new Kohana_Exception('To, from, and subject fields need to be set');
 					}
 			
 				// log
